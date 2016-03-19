@@ -54,6 +54,15 @@ type templateData struct {
 	VcsUrl       string
 }
 
+func urlExists(url string) bool {
+	if resp, err := http.Head(url); err == nil {
+		if resp.StatusCode == 200 {
+			return true
+		}
+	}
+	return false
+}
+
 func redirect(resp http.ResponseWriter, req *http.Request) {
 	data := &templateData{}
 
@@ -61,6 +70,11 @@ func redirect(resp http.ResponseWriter, req *http.Request) {
 	repoName := s[0]
 	data.ImportPrefix = "docwhat.org/" + repoName
 	data.VcsUrl = "https://github.com/docwhat/" + repoName
+
+	if !urlExists(data.VcsUrl) {
+		http.Error(resp, "Not Found", 404)
+		return
+	}
 
 	var buf bytes.Buffer
 	err := tmpl.Execute(&buf, data)
