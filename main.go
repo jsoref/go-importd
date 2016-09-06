@@ -85,5 +85,7 @@ func redirect(resp http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	resp.Write(buf.Bytes())
+	if _, err := resp.Write(buf.Bytes()); err != nil {
+		http.Error(resp, err.Error(), 500)
+	}
 }
