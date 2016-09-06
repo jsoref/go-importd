@@ -5,4 +5,4 @@ generic.
 
 ## Credits
 
-This is based on `rsc.io/go-import-redirector` by rsc.
+This is based on [`rsc.io/go-import-redirector`](http://rsc.io/go-import-redirector) by [rsc](https://github.com/rsc.io).
