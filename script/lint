@@ -9,6 +9,7 @@ header "Lint"
 gometalinter \
   --deadline=1m \
   --vendored-linters \
+  --vendor \
   --disable=gotype
 
 # vim: set ft=sh :

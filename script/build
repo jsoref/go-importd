@@ -15,9 +15,9 @@ progname="go-importd"
 export CGO_ENABLED=0 # Force static compiling
 
 header "Building native binary"
-go build \
+govendor build \
   -ldflags "-s -w" \
   -o "$progname" \
-  ./*.go
+  +local
 
 # vim: set ft=sh :
