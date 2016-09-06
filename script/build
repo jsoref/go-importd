@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Builds one (or more executable).
+#
+# Usage:
+#   Just your native executable:
+#      ./script/build
+#   All cross compile platforms:
+#      ./script/build all
+
+set -euo pipefail
+source "$(dirname "$0")/utilities.bash"
+progname="go-importd"
+
+export CGO_ENABLED=0 # Force static compiling
+
+header "Building native binary"
+go build \
+  -ldflags "-s -w" \
+  -o "$progname" \
+  ./*.go
+
+# vim: set ft=sh :
