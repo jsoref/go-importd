@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/docwhat/go-importd.svg?branch=master)](https://travis-ci.org/docwhat/go-importd)
+
 go-importd
 ==========
 
