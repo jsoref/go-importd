@@ -53,12 +53,14 @@ func makeRedirector(config appConfig) handlerFunction {
 	}
 
 	return func(resp http.ResponseWriter, req *http.Request) {
-		data := &templateData{}
+		repoName := strings.SplitN(strings.Trim(req.URL.Path, "/"), "/", 2)[0]
 
-		s := strings.SplitN(strings.Trim(req.URL.Path, "/"), "/", 2)
-		repoName := s[0]
-		data.ImportPrefix = config.hostPrefix + repoName
-		data.VcsURL = config.githubUserURL + repoName
+		if repoName == "" {
+			http.Error(resp, "Not Found", 404)
+			return
+		}
+
+		data := &templateData{ImportPrefix: (config.importDomain + repoName), VcsURL: (config.githubUserURL + repoName)}
 
 		if !urlExists(data.VcsURL) {
 			http.Error(resp, "Not Found", 404)
