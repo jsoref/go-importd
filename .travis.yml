@@ -5,13 +5,31 @@ notifications:
   email:
     on_success: never
     on_failure: always
+
 before_install:
-  - go version
+- go version
+
 install:
-  - ./script/bootstrap
+- ./script/bootstrap
+
 script:
-  - ./script/test
-  - ./script/lint
-  - ./script/build
-  - ls -lh
-  - 'grep --color TODO: *.go'
+- ./script/test
+- ./script/lint
+
+before_deploy:
+- ./script/build all
+- ls -1sh go-importd_*
+- sha256sum go-importd_* > checksums.sha256
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: pCstZpUBuYY45uvDiGmxq/MLRNfijGKSqPAKWwuAqKL3wvQIJHfHuZhW56BwqVtMCa2LYu/2gfzhgqWEYQ25cXzDhLXp9oJWiaURREyMXWkQzbu6bBK8YMSfksnS8TMfeptQLH2O1f3JN0tSdCUXDQkk1u70iwegGzAEWfgUKd3LpZzsooed7uYaKwKewbZR4g8IlBYdjjQvtfiXjYpvtSk1F3DyUxUcNcBuoM38JjHG1k05nUFDfafA1lpgUKOo2kSECmuaBHghBGLLrgjDFOIinhdQxgjWzia1MwcryEyyHaBaKqqI+G9C+X96LJ7VMqqGs5K+7fd+1bWzsKNua1I4WDx93Gieaut2rwzMcA95Px+txV1ldNaX4vPG/kY0d3bekS28yxGdGNPMBhMJB8K0Ujivr7l385i6qQVH+0ko4Wk1QbiawvjerceZf8CX9Byg+pKQ7pKvkAiIyY6BQE9iQyzgrnmgfDd/ltwOM2MGGlvhMjsLT0quDh5zjnlekMgPS6MI+9EiynMbZ5ALr0mfa48HMLGWoar7GwgovI8rwBknrOQiWYQ7TKA6qZcCVwnpkj2bviUR99RZ4AnIzWtUrhfNajD970nZpOT+r11oEWXn8plCSgivMXlii82HMyw42qkrHgReDaYjDMN6qgNPEzg8rDIlRsAOHfADCMI=
+  file:
+  - checksums.sha256
+  - go-importd_darwin_amd64
+  - go-importd_linux_amd64
+  on:
+    tags: true
+    repo: docwhat/go-importd
