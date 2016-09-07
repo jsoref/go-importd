@@ -29,19 +29,19 @@ func parseFlags(args []string) appConfig {
 		log.Fatalf("Unable to get hostname: %s", err)
 	}
 
-	app.Flag("listen", "The address to serve HTTP on").
+	app.Flag("listen", "The address to serve HTTP on. (Env: GO_IMPORTD_LISTEN)").
 		Short('l').
 		Default(":http").
 		OverrideDefaultFromEnvar("GO_IMPORTD_LISTEN").
 		StringVar(&config.listenAddress)
 
-	app.Flag("import-domain", "The domain for imports. Usually this hostname.").
+	app.Flag("import-domain", "The domain for imports. Usually this hostname. (Env: GO_IMPORTD_IMPORT_DOMAIN)").
 		Short('i').
 		Default(hostname).
 		OverrideDefaultFromEnvar("GO_IMPORTD_IMPORT_DOMAIN").
 		StringVar(&config.importDomain)
 
-	app.Flag("github-user-url", "The base URL on github for your projects.").
+	app.Flag("github-user-url", "The base URL on github for your projects. (Env: GO_IMPORTD_GITHUB_USER_URL)").
 		Short('g').
 		Default("https://github.com/docwhat").
 		OverrideDefaultFromEnvar("GO_IMPORTD_GITHUB_USER_URL").
