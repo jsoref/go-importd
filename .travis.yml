@@ -16,10 +16,17 @@ script:
 - ./script/test
 - ./script/lint
 
+env:
+  global:
+      secure: "iZs40lh/1aFMribiTLEwEvH+/5UNqFIZVKI1eAXVlMWSN16Xx996h4zbuGMA5yHAQVWo0PQ9TeAOFi70yW63cC/r24PhjISEsHt5e2Y0B7CuPKVfCwd+DECerIWEhBlZHMdUlrs7+KgBRmW6QPblz3PUFu71JLO0M/TdLyW7A7/V2wZ4R7vUyOSEiDWIAWicFdcvtM4x1PeLYCm0e4JNNRwwnPh0QGaxG/JsiwEhVK5ewuFhOcBwkkSgO3vWpWsx0bbHDDHL8NOeNSKsRToVJj2PPHADEexg3Nb3bBxgzIo0ZIH3BNqeNHKpYL4d1o8ZGKGfLzLWeDWU1LntKYlqNNRQyhmL7m3v3raqASMAqdZtII2jBJpdiz03hLR43vd6JbeYRCmivfaLANVCDXPFO64Qf/bh5/cszRi8WTYYrgLWlHSdzx3H7uPXBBUKK1d/fR4E9ZU6XBxdtrnEG8HnlA0KSpk/3nnPbDGBYZ73DOILe3EvdJfTLrN9IXfjQJ+AkPCOP7g4SG2ApSH+1C5iFm9ha1Jl5qeWr/nKt5yOiXV0nursgR2PuNqgxolz91/p+aSKOD5P4bV9taEpfvVhYfXzWrXAwFDLGul+AT4yC0l4QHWYDou1IutaDXCnTU1C5d1fwmFoVeZiJDnD5/iQ8eedOEPRPAjvbIQmSzdiBeo="
+
 before_deploy:
 - ./script/build all
 - ls -1sh go-importd_*
 - sha256sum go-importd_* > checksums.sha256
+
+after_deploy:
+  - 'curl -k -H "Content-Type: application/json" --data ''{"source_type": "Tag", "source_name": "''"$TRAVIS_TAG"''"}'' -X POST "$DOCKER_HUB_TRIGGER_URL"'
 
 deploy:
   skip_cleanup: true
