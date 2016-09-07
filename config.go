@@ -29,7 +29,7 @@ func parseFlags(args []string) appConfig {
 		log.Fatalf("Unable to get hostname: %s", err)
 	}
 
-	app.Flag("listen", "The address to server http on").
+	app.Flag("listen", "The address to serve HTTP on").
 		Short('l').
 		Default(":http").
 		OverrideDefaultFromEnvar("GO_IMPORTD_LISTEN").
