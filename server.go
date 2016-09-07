@@ -16,7 +16,9 @@ func serve(config appConfig) {
 }
 
 func urlExists(url string) bool {
-	if resp, err := http.Head(url); err == nil {
+	if resp, err := http.Head(url); err != nil {
+		log.Println(err)
+	} else {
 		if resp.StatusCode == 200 {
 			return true
 		}
