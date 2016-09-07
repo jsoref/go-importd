@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"strings"
 
@@ -10,11 +11,12 @@ import (
 type appConfig struct {
 	listenAddress string
 	githubUserURL string
-	hostPrefix    string
+	importDomain  string
 }
 
 func parseFlags(args []string) appConfig {
-	config := appConfig{hostPrefix: "docwhat.org/"} // TODO: Make hostPrefix a flag.
+	config := appConfig{}
+
 	app := kingpin.New("go-importd", "Redirector for go imports for custom domains.")
 	app.Writer(os.Stdout)
 	app.HelpFlag.Short('h')
@@ -22,11 +24,22 @@ func parseFlags(args []string) appConfig {
 	app.Version(appVersion)
 	app.VersionFlag.Short('v')
 
+	hostname, err := os.Hostname()
+	if err != nil {
+		log.Fatalf("Unable to get hostname: %s", err)
+	}
+
 	app.Flag("listen", "The address to server http on").
 		Short('l').
 		Default(":http").
 		OverrideDefaultFromEnvar("GO_IMPORTD_LISTEN").
 		StringVar(&config.listenAddress)
+
+	app.Flag("import-domain", "The domain for imports. Usually this hostname.").
+		Short('i').
+		Default(hostname).
+		OverrideDefaultFromEnvar("GO_IMPORTD_IMPORT_DOMAIN").
+		StringVar(&config.importDomain)
 
 	app.Flag("github-user-url", "The base URL on github for your projects.").
 		Short('g').
@@ -43,6 +56,7 @@ func parseFlags(args []string) appConfig {
 	}
 
 	config.githubUserURL = strings.TrimSuffix(config.githubUserURL, "/") + "/"
+	config.importDomain = strings.TrimSuffix(config.importDomain, "/") + "/"
 
 	return config
 }
