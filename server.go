@@ -8,8 +8,6 @@ import (
 	"strings"
 )
 
-type handlerFunction func(http.ResponseWriter, *http.Request)
-
 func serve(config appConfig) {
 	http.HandleFunc("/", makeRedirector(config))
 	log.Fatal(http.ListenAndServe(config.listenAddress, nil))
@@ -26,7 +24,7 @@ func urlExists(url string) bool {
 	return false
 }
 
-func makeRedirector(config appConfig) handlerFunction {
+func makeRedirector(config appConfig) http.HandlerFunc {
 	var redirectHTML = `<!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
