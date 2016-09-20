@@ -10,10 +10,10 @@ before_install:
 - go version
 
 install:
-- ./script/bootstrap
+- ./script/bootstrap -u
 
 script:
-- ./script/test
+- ./script/test -race
 - ./script/lint
 
 env:
