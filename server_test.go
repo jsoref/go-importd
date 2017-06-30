@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func testURLExists(t *testing.T) {
+func TestURLExists(t *testing.T) {
 	var urlTestTable = []struct {
 		in  string
 		out bool
