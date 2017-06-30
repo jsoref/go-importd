@@ -7,15 +7,13 @@ FROM golang:1.8 as builder
 
 WORKDIR /go/src/docwhat.org/go-importd
 
-COPY ./script/ ./script/
+COPY ./script/bootstrap ./script/
+COPY ./script/utilities.bash ./script/
 RUN ./script/bootstrap -u
 
-COPY ./vendor/ ./vendor/
-COPY ./*.go ./
+COPY ./ ./
 
-RUN ./script/test -race
-RUN ./script/lint
-RUN CGO_ENABLED=0 govendor build -a -ldflags '-s -w' -o go-importd +local
+RUN ./script/test -race && ./script/lint && ./script/build
 
 ##
 ##
