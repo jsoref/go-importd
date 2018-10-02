@@ -4,6 +4,7 @@ go: '1.11.x'
 
 env:
   global:
+  - GO111MODULE=on
   - DOCKER_USERNAME=docwhat
   - secure: u3w2f25Y69gVrBlY5wgosDQZGdBppIoI/G9B3Nj8NAA6P76rPmMjOuvOjx6YK0V42OLS1lyahydDdSzl8zz/tq5O2KoQDXnrbMVtzS41MqpURlQpFnIpwd9GVC2D5UdgplmeibD05DAFoTBf/YxpUVYwE+vYrusng+pS2kTYAylzFk9m6v+eG9BcY4UYlBtnHvuUIrN6bxXdfKW6MKgQAg/rcgUzhgk1cDeW0OnaZFY5kYj6NlrJm/bYjxujsiJgM/B2qpMOzpA8LEZblOykTCBrSNnu9cF7Dy2iBasRUtC68Rz9VsVnVQ0tu9WR2CwOb8B3RyLxv5Tedl1ITWZSpSF6yEvAglZqOL41lW/Hn/CDHEFwn9KUbCyYo4YIT/rHMsgeQVaQOwcYLMZjybLZD84c1re9CsMcgWlx0h1rIPmDXcVilEnHeYeA7mIONnQJH39dq+Mh2iOgM8KDbIJSgo2hRK/gIR6HXln1rRgIIenfeqL6hj64+P6jQPQ1m1NrqD21Bjnm7UAygQvbbylu2EJp2FazNQjrm8f4LjY4xjeGIcEa3kDdPvxt3ZKJrsTR2nCIis2m2M5grApl7naW7puC0kAoWoWwDNbGmFvkyp45mOsqFNl71JMWEvWkPuEOWNzawy/rJEMGsHkFbfkReg7itbMbX6DBRe2YgsK8YYM=
 
@@ -13,10 +14,10 @@ notifications:
     on_failure: always
 
 install:
-- "./script/bootstrap -u"
+- "./script/bootstrap"
 
 script:
-- "./script/test -race"
+- "./script/test"
 - "./script/lint"
 
 before_deploy:
