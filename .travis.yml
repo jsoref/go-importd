@@ -24,6 +24,9 @@ script:
 before_deploy:
 - "./script/docker-login"
 
+after_deploy:
+- "curl -sSf -X POST 'https://hooks.microbadger.com/images/docwhat/go-importd/nH_22PPe-nH2mYs66L0BRGDQsr4='"
+
 deploy:
   skip_cleanup: true
   provider: script
