@@ -9,10 +9,8 @@ cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
 # shellcheck source=./utilities.bash
 source script/utilities.bash
 
-header "Fetching utilites"
-go get "$@" -v \
-  github.com/mitchellh/gox \
-  github.com/kardianos/govendor
+header "Modules"
+go mod download
 
 header "GoMetaLinter"
 rm -rf bin

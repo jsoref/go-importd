@@ -3,9 +3,15 @@
 # Runs all tests.
 
 set -euo pipefail
-source "$(dirname "$0")/utilities.bash"
+cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
+
+# shellcheck source=./utilities.bash
+source script/utilities.bash
+
+# Don't use CGO
+export CGO_ENABLED=0
 
 header "Tests"
-govendor test "$@" -v +local
+go test -v ./...
 
 # vim: set ft=sh :

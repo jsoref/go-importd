@@ -1,46 +1,17 @@
 #!/bin/bash
 #
-# Builds one (or more executable).
-#
-# Usage:
-#   Just your native executable:
-#      ./script/build
-#   All cross compile platforms:
-#      ./script/build all
+# Builds the executable for this platform.
 
 set -euo pipefail
-# shellcheck source=script/utilities.bash
-source "$(dirname "$0")/utilities.bash"
-progname="go-importd"
-osarch="${1:-native}"
+cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
 
-export CGO_ENABLED=0 # Force static compiling
+# shellcheck source=./utilities.bash
+source script/utilities.bash
 
-version="$(git describe --tags || echo unreleased)"
-ldflags="-s -w -X main.version=${version}"
+# Don't use CGO
+export CGO_ENABLED=0
 
-function dogox()
-{
-  gox \
-    -ldflags "$ldflags" \
-    -osarch="$*" \
-    -output="${progname}_{{.OS}}_{{.Arch}}"
-}
-
-if [[ "$osarch" == *all* ]]; then
-  osarches=(
-    darwin/amd64
-    linux/amd64
-  )
-
-  header "Building all binaries"
-  dogox "${osarches[*]}"
-else
-  header "Building native binary"
-  govendor build \
-    -ldflags "$ldflags" \
-    -o "$progname" \
-    +local
-fi
+header "Building native binary"
+go build -v ./...
 
 # vim: set ft=sh :
