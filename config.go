@@ -21,7 +21,7 @@ func parseFlags(args []string) appConfig {
 	app.Writer(os.Stdout)
 	app.HelpFlag.Short('h')
 	app.Author("Christian Höltje https://docwhat.org/")
-	app.Version(version)
+	app.Version(versionString())
 	app.VersionFlag.Short('v')
 
 	hostname, err := os.Hostname()

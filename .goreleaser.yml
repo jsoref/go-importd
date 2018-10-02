@@ -1,0 +1,46 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+builds:
+- binary: go-importd
+  env:
+  - CGO_ENABLED=0
+  goos:
+    - darwin
+    - linux
+    - freebsd
+  goarch:
+    - amd64
+git:
+  short_hash: true
+archive:
+  format: binary
+  files:
+    - LICENSE*
+    - README*
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '(?i)^docs?:'
+    - '(?i)^(tests?|lint):'
+    - '(?i)^readme:'
+    - '(?i)^(scripts?|travis|ci):'
+    - 'typo|thinko'
+release:
+  github:
+    owner: docwhat
+    name: go-importd
+  name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
+dockers:
+  -
+    binary: go-importd
+    image: 'docwhat/go-importd'
+    tag_templates:
+      - "{{ .Tag }}"
+      - "v{{ .Major }}"
+      - "v{{ .Major }}.{{ .Minor }}"
+      - latest

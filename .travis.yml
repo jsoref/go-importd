@@ -1,35 +1,32 @@
 sudo: false
 language: go
-go: 1.7
+go: 1.11
+
+env:
+  global:
+  - DOCKER_USERNAME=docwhat
+  - secure: u3w2f25Y69gVrBlY5wgosDQZGdBppIoI/G9B3Nj8NAA6P76rPmMjOuvOjx6YK0V42OLS1lyahydDdSzl8zz/tq5O2KoQDXnrbMVtzS41MqpURlQpFnIpwd9GVC2D5UdgplmeibD05DAFoTBf/YxpUVYwE+vYrusng+pS2kTYAylzFk9m6v+eG9BcY4UYlBtnHvuUIrN6bxXdfKW6MKgQAg/rcgUzhgk1cDeW0OnaZFY5kYj6NlrJm/bYjxujsiJgM/B2qpMOzpA8LEZblOykTCBrSNnu9cF7Dy2iBasRUtC68Rz9VsVnVQ0tu9WR2CwOb8B3RyLxv5Tedl1ITWZSpSF6yEvAglZqOL41lW/Hn/CDHEFwn9KUbCyYo4YIT/rHMsgeQVaQOwcYLMZjybLZD84c1re9CsMcgWlx0h1rIPmDXcVilEnHeYeA7mIONnQJH39dq+Mh2iOgM8KDbIJSgo2hRK/gIR6HXln1rRgIIenfeqL6hj64+P6jQPQ1m1NrqD21Bjnm7UAygQvbbylu2EJp2FazNQjrm8f4LjY4xjeGIcEa3kDdPvxt3ZKJrsTR2nCIis2m2M5grApl7naW7puC0kAoWoWwDNbGmFvkyp45mOsqFNl71JMWEvWkPuEOWNzawy/rJEMGsHkFbfkReg7itbMbX6DBRe2YgsK8YYM=
+
 notifications:
   email:
     on_success: never
     on_failure: always
 
-before_install:
-- go version
-
 install:
-- ./script/bootstrap -u
+- "./script/bootstrap -u"
 
 script:
-- ./script/test -race
-- ./script/lint
+- "./script/test -race"
+- "./script/lint"
 
 before_deploy:
-- ./script/build all
-- ls -1sh go-importd_*
-- sha256sum go-importd_* > checksums.sha256
+- "./script/docker-login"
 
 deploy:
   skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: pCstZpUBuYY45uvDiGmxq/MLRNfijGKSqPAKWwuAqKL3wvQIJHfHuZhW56BwqVtMCa2LYu/2gfzhgqWEYQ25cXzDhLXp9oJWiaURREyMXWkQzbu6bBK8YMSfksnS8TMfeptQLH2O1f3JN0tSdCUXDQkk1u70iwegGzAEWfgUKd3LpZzsooed7uYaKwKewbZR4g8IlBYdjjQvtfiXjYpvtSk1F3DyUxUcNcBuoM38JjHG1k05nUFDfafA1lpgUKOo2kSECmuaBHghBGLLrgjDFOIinhdQxgjWzia1MwcryEyyHaBaKqqI+G9C+X96LJ7VMqqGs5K+7fd+1bWzsKNua1I4WDx93Gieaut2rwzMcA95Px+txV1ldNaX4vPG/kY0d3bekS28yxGdGNPMBhMJB8K0Ujivr7l385i6qQVH+0ko4Wk1QbiawvjerceZf8CX9Byg+pKQ7pKvkAiIyY6BQE9iQyzgrnmgfDd/ltwOM2MGGlvhMjsLT0quDh5zjnlekMgPS6MI+9EiynMbZ5ALr0mfa48HMLGWoar7GwgovI8rwBknrOQiWYQ7TKA6qZcCVwnpkj2bviUR99RZ4AnIzWtUrhfNajD970nZpOT+r11oEWXn8plCSgivMXlii82HMyw42qkrHgReDaYjDMN6qgNPEzg8rDIlRsAOHfADCMI=
-  file:
-  - checksums.sha256
-  - go-importd_darwin_amd64
-  - go-importd_linux_amd64
+  provider: script
+  script: curl -sSfL https://git.io/goreleaser | bash
   on:
     tags: true
     repo: docwhat/go-importd
+    condition: "$TRAVIS_OS_NAME = linux"

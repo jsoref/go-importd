@@ -25,3 +25,4 @@ _testmain.go
 
 # My binaries
 /go-importd*
+/dist/
