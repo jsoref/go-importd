@@ -9,9 +9,6 @@ cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
 # shellcheck source=./utilities.bash
 source script/utilities.bash
 
-header "Modules"
-go mod download
-
 header "GoMetaLinter"
 rm -rf bin
 if [ -x /usr/local/bin/gometalinter ] && [ -z "${CI:-}" ]; then
