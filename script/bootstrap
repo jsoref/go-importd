@@ -14,8 +14,13 @@ go get "$@" -v \
   github.com/mitchellh/gox \
   github.com/kardianos/govendor
 
-header "Installing gometalinter"
+header "GoMetaLinter"
 rm -rf bin
-curl -sSfL -o - https://git.io/vp6lP | sh
+if [ -x /usr/local/bin/gometalinter ] && [ -z "${CI:-}" ]; then
+  echo "Using system gometalinter"
+else
+  echo "Installing gometalinter..."
+  curl -sSfL -o - https://git.io/vp6lP | sh
+fi
 
 # vim: set ft=sh :
