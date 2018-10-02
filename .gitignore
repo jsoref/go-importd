@@ -23,6 +23,9 @@ _testmain.go
 *.test
 *.prof
 
+# Gometalinter binaries
+/bin/
+
 # My binaries
 /go-importd*
 /dist/
