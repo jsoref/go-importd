@@ -15,6 +15,7 @@ if [ -d bin ]; then
 fi
 
 header "Lint"
-gometalinter --deadline=5m
+env GO111MODULE=off \
+  gometalinter --deadline=5m
 
 # vim: set ft=sh :
