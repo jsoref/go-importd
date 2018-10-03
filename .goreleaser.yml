@@ -56,3 +56,5 @@ dockers:
       - "--label=org.label-schema.vcs-ref={{.Commit}}"
       - "--label=org.label-schema.vcs-url=https://github.com/docwhat/go-importd.git"
       - "--label=org.label-schema.name={{.ProjectName}}"
+      - "--label=org.label-schema.docker.cmd=docker run -d -p 80:80 docwhat/go-importd"
+      - "--label=org.label-schema.docker.cmd.help=docker run docwhat/go-importd --help"
