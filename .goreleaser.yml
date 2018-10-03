@@ -28,7 +28,7 @@ changelog:
     - '(?i)^docs?:'
     - '(?i)^(tests?|lint):'
     - '(?i)^readme:'
-    - '(?i)^(scripts?|travis|ci):'
+    - '(?i)^(editorconfig|scripts?|travis|ci):'
     - 'typo|thinko'
 release:
   github:
