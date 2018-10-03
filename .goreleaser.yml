@@ -44,3 +44,12 @@ dockers:
       - "v{{ .Major }}"
       - "v{{ .Major }}.{{ .Minor }}"
       - latest
+    build_flag_templates:
+      - "--label=org.label-schema.schema-version=1.0"
+      - "--label=org.label-schema.name=go-importd"
+      - "--label=org.label-schema.description=A 'go get' redirector for vanity names."
+      - "--label=org.label-schema.url=https://github.com/docwhat/go-importd"
+      - "--label=org.label-schema.version={{.Version}}"
+      - "--label=org.label-schema.vcs-ref={{.Commit}}"
+      - "--label=org.label-schema.vcs-url=https://github.com/docwhat/go-importd.git"
+      - "--label=org.label-schema.name={{.ProjectName}}"
