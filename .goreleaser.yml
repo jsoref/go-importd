@@ -10,6 +10,9 @@ builds:
     - freebsd
   goarch:
     - amd64
+    - arm
+  goarm:
+    - 7
 git:
   short_hash: true
 archive:
