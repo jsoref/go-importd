@@ -13,8 +13,6 @@ builds:
     - arm
   goarm:
     - 7
-git:
-  short_hash: true
 archive:
   format: binary
   files:
@@ -39,14 +37,13 @@ release:
     name: go-importd
   name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
 dockers:
-  -
-    binary: go-importd
-    image: 'docwhat/go-importd'
-    tag_templates:
-      - "{{ .Tag }}"
-      - "v{{ .Major }}"
-      - "v{{ .Major }}.{{ .Minor }}"
-      - latest
+  - binaries:
+      - go-importd
+    image_templates:
+      - "docwhat/go-importd:{{ .Tag }}"
+      - "docwhat/go-importd:v{{ .Major }}"
+      - "docwhat/go-importd:v{{ .Major }}.{{ .Minor }}"
+      - docwhat/go-importd:latest
     build_flag_templates:
       - "--label=org.label-schema.schema-version=1.0"
       - "--label=org.label-schema.name=go-importd"
