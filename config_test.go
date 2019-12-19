@@ -6,6 +6,8 @@ import (
 	"testing"
 )
 
+const githubOrgURL = "https://github.com/github/"
+
 var flagTestTable = []struct {
 	field string
 	in    []string
@@ -16,9 +18,9 @@ var flagTestTable = []struct {
 	{"listenAddress", []string{"-l", ":2000"}, ":2000"},
 
 	{"githubUserURL", []string{}, "https://github.com/docwhat/"},
-	{"githubUserURL", []string{"--github-user-url", "https://github.com/github"}, "https://github.com/github/"},
+	{"githubUserURL", []string{"--github-user-url", "https://github.com/github"}, githubOrgURL},
 	{"githubUserURL", []string{"-g", "https://github.com/tpope"}, "https://github.com/tpope/"},
-	{"githubUserURL", []string{"-g", "https://github.com/github/"}, "https://github.com/github/"},
+	{"githubUserURL", []string{"-g", githubOrgURL}, githubOrgURL},
 }
 
 func TestParseFlags(t *testing.T) {
