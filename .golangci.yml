@@ -1,0 +1,22 @@
+# spell-checker: disable
+
+service:
+  golangci-lint-version: 1.21.x
+
+run:
+  tests: false
+
+linters:
+  enable-all: true
+  disable:
+    - funlen
+    - gochecknoglobals
+    - godox
+    - lll
+    - wsl
+
+linters-settings:
+  misspell:
+    locale: US
+    ignore-words:
+      - "importd"

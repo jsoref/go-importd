@@ -9,13 +9,8 @@ cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
 # shellcheck source=./utilities.bash
 source script/utilities.bash
 
-header "GoMetaLinter"
+header "Go lang CI lint"
 rm -rf bin
-if [ -x /usr/local/bin/gometalinter ] && [ -z "${CI:-}" ]; then
-  echo "Using system gometalinter"
-else
-  echo "Installing gometalinter..."
-  curl -sSfL -o - https://git.io/vp6lP | sh
-fi
+curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- v1.20.1
 
 # vim: set ft=sh :

@@ -15,7 +15,6 @@ if [ -d bin ]; then
 fi
 
 header "Lint"
-env GO111MODULE=off \
-  gometalinter --deadline=5m
+bin/golangci-lint run
 
 # vim: set ft=sh :
