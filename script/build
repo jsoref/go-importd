@@ -5,7 +5,6 @@
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
 
-# shellcheck source=./utilities.bash
 source script/utilities.bash
 
 # Don't use CGO
