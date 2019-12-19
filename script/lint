@@ -8,12 +8,11 @@ cd "$(dirname "${BASH_SOURCE[0]}")" && cd ..
 
 source "script/utilities.bash"
 
-# Use local version if used.
-if [ -d bin ]; then
-  export PATH="${PWD}/bin:${PATH}"
-fi
-
 header "Lint"
-bin/golangci-lint run
+if [ -t 1 ] && [ -t 0 ] && [ -z "${CI:-}" ]; then
+  bin/golangci-lint run
+else
+  bin/golangci-lint run --out-format=checkstyle >lint.xml
+fi
 
 # vim: set ft=sh :

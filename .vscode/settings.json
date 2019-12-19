@@ -1,13 +1,6 @@
 {
-  "cSpell.words": [
-    "golangci",
-    "importd",
-    "nosec",
-    "Höltje",
-    "docwhat"
-  ],
+  "cSpell.words": ["Höltje", "docwhat"],
+  "cSpell.ignoreWords": ["golangci", "importd", "nosec"],
   "shellcheck.useWorkspaceRootAsCwd": true,
-  "shellcheck.customArgs": [
-    "--external-sources"
-  ]
+  "shellcheck.customArgs": ["--external-sources"]
 }

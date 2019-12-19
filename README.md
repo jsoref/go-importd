@@ -1,4 +1,4 @@
-<p>
+<p><!-- spell-checker: disable -->
     <a href="https://github.com/docwhat/go-importd/releases">
         <img src="https://img.shields.io/github/release/docwhat/go-importd.svg" alt="GitHub release">
     </a>
@@ -17,7 +17,7 @@
     <a href="https://sonarcloud.io/dashboard?id=docwhat_go-importd">
         <img src="https://sonarcloud.io/api/project_badges/measure?project=docwhat_go-importd&metric=alert_status" alt="Quality Gate Status">
     </a>
-</p>
+</p><!-- spell-checker: enable -->
 
 # go-importd
 
