@@ -49,10 +49,8 @@ func parseFlags(args []string) appConfig {
 
 	if command, err := app.Parse(args); err != nil {
 		app.Usage(nil)
-	} else {
-		if command != "" {
-			app.Usage(nil)
-		}
+	} else if command != "" {
+		app.Usage(nil)
 	}
 
 	config.githubUserURL = strings.TrimSuffix(config.githubUserURL, "/") + "/"

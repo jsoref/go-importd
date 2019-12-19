@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"html/template"
+	goTemplate "html/template"
 	"log"
 	"net/http"
 	"strings"
@@ -17,6 +17,7 @@ func urlExists(url string) bool {
 	if resp, err := http.Head(url); err != nil {
 		log.Println(err)
 	} else {
+		defer resp.Body.Close()
 		if resp.StatusCode == 200 {
 			return true
 		}
@@ -45,7 +46,7 @@ func makeRedirector(config appConfig) http.HandlerFunc {
 </div>
 `
 
-	tmpl := template.Must(template.New("main").Parse(redirectHTML))
+	template := goTemplate.Must(goTemplate.New("main").Parse(redirectHTML))
 
 	type templateData struct {
 		ImportPrefix string
@@ -68,7 +69,7 @@ func makeRedirector(config appConfig) http.HandlerFunc {
 		}
 
 		var buf bytes.Buffer
-		err := tmpl.Execute(&buf, data)
+		err := template.Execute(&buf, data)
 		if err != nil {
 			http.Error(resp, err.Error(), 500)
 			return
