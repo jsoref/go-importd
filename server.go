@@ -14,6 +14,7 @@ func serve(config appConfig) {
 }
 
 func urlExists(url string) bool {
+	/* #nosec */
 	if resp, err := http.Head(url); err != nil {
 		log.Println(err)
 	} else {
