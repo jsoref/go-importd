@@ -13,11 +13,12 @@ builds:
     - arm
   goarm:
     - 7
-archive:
-  format: binary
-  files:
-    - LICENSE*
-    - README*
+archives:
+  - id: binary
+    format: binary
+    files:
+      - LICENSE*
+      - README*
 checksum:
   name_template: 'checksums.txt'
 snapshot:
